@@ -1,0 +1,65 @@
+{
+  "drug_query": "acetaminophen",
+  "drug_resolved": "acetaminophen",
+  "pubmed": [
+    {
+      "pmid": "42372119",
+      "title": "Phytochemical characterization and ",
+      "journal": "Natural product research",
+      "year": "2026",
+      "abstract": "Acetaminophen overdose can cause liver damage, and represents the second most prevalent indication for liver transplantation on a global scale. This study evaluates the hepatoprotective potential of the crude extract from",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42372119/"
+    },
+    {
+      "pmid": "42371767",
+      "title": "Optimized Ex Vivo Human Liver Slice Culture Maintains Extended Viability and Function for Hepatotoxicity Testing.",
+      "journal": "Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
+      "year": "2026",
+      "abstract": "Human precision-cut liver slices (hPCLS) are widely used to study liver physiology and disease, but their short lifespan limits long-term functional studies and drug testing. Here, we describe an optimized ex vivo culture system, hPCLS-EV (Extended Viability), that maintains tissue viability, cellular composition, and liver-specific functions for up to five days. Optimization combined reduced slice thickness, high oxygen partial pressure, and air-liquid interface culture, preserving hepatocyte integrity, stromal stability, and immune cell populations. Functional assays confirmed sustained albumin secretion, glutathione content, and cytochrome P450 activity. Transcriptomic profiling revealed rapid downregulation of metabolic pathways by day 3, followed by stabilization up to day 5, with limited advanced injury or fibrosis-related remodeling. We applied hPCLS-EV to model drug-induced liver injury using acetaminophen and troglitazone. The model captured compound-specific injury patterns, including early glutathione depletion with acetaminophen and delayed oxidative stress with troglitazone. Together, these findings support optimized hPCLS-EV as a useful ex vivo human liver model that preserves key tissue architecture and selected liver functions over an extended culture period, enabling longitudinal assessment of hepatotoxic injury. This platform may provide a useful experimental tool for preclinical hepatotoxicity testing, mechanistic studies of liver injury, and patient-specific applications in precision medicine.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42371767/"
+    },
+    {
+      "pmid": "42371637",
+      "title": "Prenatal Acetaminophen (Paracetamol) Use and the Risk of Autism and/or Attention-Deficit/Hyperactivity Disorder Among Sibling-Matched Cohorts.",
+      "journal": "JAMA internal medicine",
+      "year": "2026",
+      "abstract": "Paracetamol (acetaminophen) is the first-line analgesic and antipyretic recommended globally during pregnancy. Observational studies have reported associations with increased risks of autism spectrum disorder (ASD) and attention-deficit/hyperactivity disorder (ADHD) in offspring, raising public and clinical concern; however, these findings may be substantially confounded by unmeasured familial factors. To assess the association between prenatal paracetamol exposure and risk of ASD and ADHD in offspring using a sibling-matched study design to control for familial confounding. This population-based cohort study, conducted from January 1, 2001, to December 31, 2023, in Hong Kong, used deidentified electronic health records within a triangulation framework. From an initial cohort of 708 020 mother-child pairs (approximately 43.3% with prenatally paracetamol exposure), sibling-matched cohorts were constructed of children from families with discordant prenatal paracetamol exposure and sufficient follow-up (≥2 years for ASD and ≥5 years for ADHD). Data analysis was conducted from October 2, 2025, to March 24, 2026. Prenatal paracetamol exposure, identified from electronic dispensing records (British National Formulary [BNF], section 4.7.1) with data on drug name, strength, dosage, and prescription dates. Incident diagnoses per the International Classification of Diseases, Ninth Revision, Clinical Modification, for ASD (code 299) or for ADHD (code 314) or a prescription for ADHD-specific medication licensed in Hong Kong (methylphenidate, atomoxetine, or lisdexamfetamine [BNF, section 4.4]). The final cohorts comprised 124 333 children for ASD analysis (mean [SD] age, 9.3 [4.7] years; 61 775 females [49.7%] and 62 558 males [50.3%]) and 97 285 for ADHD analysis (mean [SD] age, 7.6 [4.2] years; 48 455 females [49.8%], 48 830 [50.2%]). In the sibling-matched analyses, prenatal paracetamol exposure was not associated with the risk of ASD (adjusted hazard ratio [aHR], 1.00; 95% CI, 0.91-1.11) or ADHD (aHR, 1.01; 95% CI, 0.93-1.08). Null associations were consistent across exposure timing, cumulative dose, and usage patterns (sporadic, intermittent, persistent), and were robust in sensitivity analyses. However, positive associations were observed in conventional cohort analyses, and importantly, also in negative control analyses of prepregnancy exposure for ASD (HR, 1.12; 95% CI, 1.08-1.17) and ADHD (HR, 1.24; 95% CI, 1.20-1.28). In this population-based cohort study, a sibling-matched analysis found no evidence of an association between prenatal paracetamol exposure and the risk of ASD or ADHD in offspring. The positive signals observed in conventional studies are likely attributable to residual familial confounding. These findings provide important reassurance regarding the safety of indicated paracetamol use during pregnancy.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42371637/"
+    },
+    {
+      "pmid": "42371636",
+      "title": "Acetaminophen Use in Pregnancy and Neurodevelopmental Outcomes-Reassuring Evidence From a Matched-Sibling Study.",
+      "journal": "JAMA internal medicine",
+      "year": "2026",
+      "abstract": "(초록 없음)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42371636/"
+    },
+    {
+      "pmid": "42370551",
+      "title": "Safety of acetylcysteine: a scoping review of iatrogenic overdose cases and their associated complications.",
+      "journal": "Clinical toxicology (Philadelphia, Pa.)",
+      "year": "2026",
+      "abstract": "Acetylcysteine is the standard antidote for acetaminophen (paracetamol) toxicity and is widely considered safe when administered appropriately. However, an increasing number of case reports have documented serious adverse outcomes following its improper administration, including cerebral edema, hemolytic uremic syndrome, and death. As acetylcysteine is increasingly utilized for roles beyond acetaminophen overdose, its broader application introduces more opportunity for error. This review aims to systematically evaluate published cases of iatrogenic acetylcysteine overdose to characterize the risks, patterns of error, and outcomes associated with these events. We conducted a scoping review of peer-reviewed literature describing iatrogenic acetylcysteine overdose. Articles were identified using Covidence through a comprehensive search of MEDLINE and additional databases. Search terms and strategy were guided by medical subject heading analysis. Included cases reported dosing or infusion-related errors that led to clinical deterioration. Cases involving known side effects (e.g., anaphylactoid reactions without overdose) or abnormal lab values without clinical toxicity were excluded. Extracted variables included dosing protocol, route, type of error, timing of events, complications, and neurological outcomes utilizing the modified Rankin scale, when available. A total of 16 reports met the inclusion criteria, with 14 describing toxicity from acetylcysteine overdose itself (analytic set) and two describing hyponatremia resulting from excess diluent volume. Among the 14 toxic overdose patients, 85.7% were female (mean age 18 years). Errors stemmed from the electronic medical record, pharmacy, provider, and nursing errors. Of the 14 reported acetylcysteine overdoses, 10 included sufficient information to analyze outcomes stratified by acetylcysteine exposure. Acetylcysteine exposure ≥1000 mg/kg was significantly associated with cerebral edema ( The significant association between acetylcysteine exposure ≥1000 mg/kg and cerebral edema underscores the importance of early recognition and intervention, particularly given the substantial lag period before clinical decline. Additionally, the predominance of multi-level system failures rather than one isolated error highlights the need for safeguards beyond protocol revision alone. As acetylcysteine expands to indications beyond toxicologic emergencies, these findings reinforce the importance of implementing additional safety measures across clinical settings. Iatrogenic acetylcysteine overdose is associated with high morbidity and mortality, with cerebral edema at very large doses contributing to rapid clinical deterioration, and frequently, death. In patients who survive longer, complications such as hemolytic uremia syndrome were observed. Evidence from this review supports the consideration of safety-focused changes in acetylcysteine administration protocols, including the adoption of simplified dosing regimens, improved electronic medical records, safeguards, and early targeted interventions. Standardizing monitoring protocols may further mitigate preventable harm in both traditional and expanded use cases.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42370551/"
+    }
+  ],
+  "fda": {
+    "found": true,
+    "brand_name": [
+      "Pain Reliever Extra Strength"
+    ],
+    "generic_name": [
+      "ACETAMINOPHEN"
+    ],
+    "manufacturer": [
+      "Valu Merchandisers Company"
+    ],
+    "route": [
+      "ORAL"
+    ],
+    "indications": "Uses temporarily relieves minor aches and pains due to: headache the common cold backache minor pain of arthritis toothache muscular aches premenstrual and menstrual cramps temporarily reduces fever",
+    "dosage": "Directions do not take more than directed adults and children 12 years and over take 2 gelcaps every 6 hours while symptoms last do not take more than 6 gelcaps in 24 hours, unless directed by a doctor do not take for more than 10 days unless directed by a doctor children under 12 years: ask a doctor",
+    "warnings": "Warnings Liver warning: This product contains acetaminophen. Severe liver damage may occur if you take more than 4,000 mg of acetaminophen in 24 hours with other drugs containing acetaminophen 3 or more alcoholic drinks every day while using this product Allergy alert: Acetaminophen may cause severe skin reactions. Symptoms may include: skin reddening blisters rash If a skin reaction occurs, stop use and seek medical help right away. Do not use if you are allergic to acetaminophen or any of the inactive ingredients in this product with any other drug containing acetaminophen (prescription or nonprescription). If you are not sure whether a drug contains acetaminophen, ask a doctor or pharmacist. Ask a doctor before use if you have liver disease. Ask a doctor or pharmacist before use if you are taking the blood thinning drug warfarin. Stop use and ask a doctor if new symptoms occur pain gets worse or lasts more than 10 days fever gets worse or lasts more than 3 days redness or swelling is present These could be signs of a serious condition. If pregnant or breast-feeding, ask a health professional before use. Keep out of reach of children. In case of overdose, get medical help or contact a Poison Control Center right away. Prompt medical attention is critical for adults as well as for children even if you do not notice any signs or symptoms.",
+    "adverse_reactions": null
+  }
+}
