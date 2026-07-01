@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>약물 정보 검색 — limlim</title>
+<style>
+  :root{--ink:#1a2330;--muted:#5b6b7d;--line:#e3e8ef;--accent:#1f6feb;--bg:#f6f8fb;}
+  *{box-sizing:border-box;}
+  body{font-family:-apple-system,"Segoe UI","Malgun Gothic",sans-serif;
+       color:var(--ink);background:var(--bg);margin:0;line-height:1.6;}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 64px;}
+  header{border-bottom:3px solid var(--accent);padding-bottom:18px;margin-bottom:28px;}
+  h1{font-size:1.8rem;margin:0 0 6px;}
+  .subtitle{color:var(--muted);font-size:.95rem;}
+  .card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;
+        padding:22px 24px;margin-bottom:16px;text-decoration:none;color:inherit;
+        transition:transform .12s ease, box-shadow .12s ease;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(31,111,235,.12);
+              border-color:var(--accent);}
+  .card h2{margin:0 0 6px;font-size:1.15rem;color:var(--accent);}
+  .card p{margin:0;font-size:.9rem;color:var(--muted);}
+  footer{margin-top:32px;font-size:.82rem;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>💊 약물 정보 검색</h1>
+    <div class="subtitle">약물명으로 FDA 허가정보 + PubMed 최신 논문을 정리해 보여주는 미니 프로젝트</div>
+  </header>
+
+  <a class="card" href="report.html">
+    <h2>📄 약물 정보 보고서 &rarr;</h2>
+    <p>Acetaminophen(아세트아미노펜) — 허가정보·경고·최신 논문 요약 보고서</p>
+  </a>
+
+  <a class="card" href="preview.html">
+    <h2>👁 미리보기 &rarr;</h2>
+    <p>FDA 허가정보와 최신 논문 5건을 카드 형태로 정리한 정적 미리보기</p>
+  </a>
+
+  <footer>
+    소스 코드: <a href="https://github.com/wkaodmsdud-creator/limlim">github.com/wkaodmsdud-creator/limlim</a><br>
+    ※ 실시간 검색 앱(app.py)은 로컬 PC에서 실행해야 동작합니다.
+  </footer>
+</div>
+</body>
+</html>
