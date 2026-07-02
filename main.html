@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>약물 정보 검색</title>
+<style>
+:root{--ink:#0f172a;--muted:#64748b;--line:#e8edf3;--accent:#2563eb;
+      --accent2:#7c3aed;--chip:#eef4ff;--bg:#eef2f8;--card:#ffffff;
+      --radius:16px;--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06);}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,"Segoe UI","Malgun Gothic",sans-serif;color:var(--ink);
+     margin:0;background:radial-gradient(1200px 500px at 50% -120px,#dbe6ff 0%,var(--bg) 60%);
+     line-height:1.65;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:880px;margin:0 auto;padding:40px 20px 72px;}
+header h1{font-size:1.9rem;margin:0 0 6px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.badge{font-size:.66rem;font-weight:700;background:linear-gradient(135deg,#22c55e,#16a34a);
+     color:#fff;padding:4px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(22,163,74,.35);}
+header p{color:var(--muted);margin:0 0 26px;font-size:.92rem;}
+.searchbar{display:flex;gap:10px;margin-bottom:10px;background:var(--card);padding:8px;
+     border-radius:14px;box-shadow:var(--shadow);}
+.searchbar input{flex:1;padding:14px 16px;font-size:1.02rem;border:none;border-radius:10px;outline:none;background:transparent;}
+.searchbar button{padding:0 26px;font-size:1rem;font-weight:700;color:#fff;cursor:pointer;
+     background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:10px;
+     transition:transform .08s,box-shadow .2s;box-shadow:0 4px 14px rgba(37,99,235,.35);}
+.searchbar button:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(37,99,235,.45);}
+.searchbar button:disabled{opacity:.5;cursor:default;transform:none;}
+.hint{color:var(--muted);font-size:.82rem;margin-bottom:28px;}
+.hint b{color:var(--accent);cursor:pointer;border-bottom:1px dotted;}
+#status{padding:18px 0;color:var(--muted);font-size:.95rem;}
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+     padding:24px 26px;margin-bottom:18px;box-shadow:var(--shadow);}
+h2{font-size:1.12rem;margin:0 0 18px;display:flex;align-items:center;gap:9px;letter-spacing:-.01em;}
+h2 .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:1rem;
+     background:linear-gradient(135deg,#e0ecff,#ede5ff);}
+h2 .count{margin-left:auto;font-size:.72rem;font-weight:700;color:var(--accent);
+     background:var(--chip);padding:3px 10px;border-radius:999px;}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:4px;}
+.kv .cell{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:11px 14px;}
+.kv .k{font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.kv .v{font-size:.95rem;font-weight:600;margin-top:2px;}
+.block{margin-top:22px;}
+.block-h{font-size:.74rem;font-weight:800;color:var(--muted);text-transform:uppercase;
+     letter-spacing:.06em;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.lead{font-size:.96rem;font-weight:600;margin:0 0 12px;color:#1e293b;}
+/* 적응증 칩 */
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:linear-gradient(135deg,#eff6ff,#f5f3ff);color:#1d4ed8;border:1px solid #dbe4ff;
+     border-radius:999px;padding:7px 14px;font-size:.86rem;font-weight:600;}
+/* 용법용량 표 */
+.dose{display:grid;gap:10px;}
+.dose-row{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+     background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:13px 16px;}
+.dose-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1.05rem;
+     background:#e0ecff;}
+.dose-k{font-weight:700;font-size:.9rem;}
+.dose-v{font-size:.9rem;color:#475569;margin-top:2px;}
+/* 주의사항 위험도 카드 */
+.warns{display:grid;gap:12px;}
+.wcard{display:grid;grid-template-columns:auto 1fr;gap:14px;border-radius:13px;padding:15px 17px;
+     border:1px solid;align-items:start;}
+.wcard .wic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:1.1rem;flex:none;}
+.wlabel{font-weight:800;font-size:.92rem;letter-spacing:-.01em;}
+.wsev{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+     padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle;}
+.wbody{margin:8px 0 0;padding:0;list-style:none;}
+.wbody li{position:relative;padding:4px 0 4px 16px;font-size:.88rem;color:#334155;}
+.wbody li::before{content:"";position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;}
+.wbody.single{padding-left:0;} .wbody.single li{padding-left:0;} .wbody.single li::before{display:none;}
+/* 위험도 색상 */
+.sev-critical{background:#fef2f2;border-color:#fecaca;} .sev-critical .wic{background:#fee2e2;}
+.sev-critical .wlabel{color:#b91c1c;} .sev-critical .wsev{background:#fee2e2;color:#b91c1c;}
+.sev-stop{background:#fff7ed;border-color:#fed7aa;} .sev-stop .wic{background:#ffedd5;}
+.sev-stop .wlabel{color:#c2410c;} .sev-stop .wsev{background:#ffedd5;color:#c2410c;}
+.sev-caution{background:#fefce8;border-color:#fde68a;} .sev-caution .wic{background:#fef3c7;}
+.sev-caution .wlabel{color:#a16207;} .sev-caution .wsev{background:#fef3c7;color:#a16207;}
+.sev-info{background:#f0f9ff;border-color:#bae6fd;} .sev-info .wic{background:#e0f2fe;}
+.sev-info .wlabel{color:#0369a1;} .sev-info .wsev{background:#e0f2fe;color:#0369a1;}
+/* 논문 */
+.paper{border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin-bottom:12px;
+     transition:border-color .15s,box-shadow .15s;}
+.paper:hover{border-color:#c7d6f0;box-shadow:0 4px 14px rgba(37,99,235,.08);}
+.paper h3{margin:0 0 8px;font-size:1rem;line-height:1.45;}
+.meta{font-size:.78rem;color:var(--muted);margin-bottom:9px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.chip{display:inline-block;background:var(--chip);color:var(--accent);border-radius:999px;
+     padding:3px 11px;font-size:.72rem;font-weight:700;}
+.abs{font-size:.88rem;color:#475569;}
+.abs.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.toggle{color:var(--accent);font-size:.8rem;cursor:pointer;margin-top:6px;display:inline-block;font-weight:600;}
+a{color:var(--accent);text-decoration:none;}
+.empty{color:var(--muted);font-style:italic;}
+footer{color:var(--muted);font-size:.78rem;text-align:center;margin-top:32px;}
+</style></head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>💊 약물 정보 검색 <span class="badge">GitHub Pages · 정적판</span></h1>
+    <p>약물명을 검색하면 PubMed 최신 논문과 FDA 허가정보를 한눈에 정리합니다. (브라우저에서 직접 조회 — 서버 불필요)</p>
+  </header>
+
+  <div class="searchbar">
+    <input id="q" placeholder="약물명 입력 (영문 일반명 권장, 예: acetaminophen)" autofocus>
+    <button id="go">검색</button>
+  </div>
+  <div class="hint">예시:
+    <b onclick="ex('acetaminophen')">acetaminophen</b> ·
+    <b onclick="ex('inclisiran')">inclisiran</b> ·
+    <b onclick="ex('aspirin')">aspirin</b>
+    &nbsp;|&nbsp; 한글 일부 지원: <b onclick="ex('타이레놀')">타이레놀</b>
+  </div>
+
+  <div id="status"></div>
+  <div id="out"></div>
+
+  <footer>데이터 소스: PubMed (E-utilities) · openFDA &nbsp;|&nbsp;
+    임상 의사결정 대체 아님 — 원문 확인 권장</footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+function ex(name){ $('#q').value = name; search(); }
+function esc(s){ const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; }
+
+/* ===== drug_search.py 포팅: 한글명 매핑 ===== */
+const KO_TO_EN = {
+  "아세트아미노펜": "acetaminophen",
+  "타이레놀": "acetaminophen",
+  "레크비오": "inclisiran",
+  "아스피린": "aspirin",
+};
+
+const PUBMED_BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils";
+const OPENFDA_LABEL = "https://api.fda.gov/drug/label.json";
+
+async function getJSON(url){
+  const r = await fetch(url, {cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+async function getText(url){
+  const r = await fetch(url, {cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+  return r.text();
+}
+
+/* ===== PubMed: esearch(JSON) + efetch(XML) ===== */
+async function searchPubmed(drug, maxResults=8, sort="date"){
+  const q = new URLSearchParams({db:"pubmed", term:drug, retmax:maxResults, sort:sort, retmode:"json"});
+  const search = await getJSON(`${PUBMED_BASE}/esearch.fcgi?${q}`);
+  const pmids = (search.esearchresult && search.esearchresult.idlist) || [];
+  if(!pmids.length) return [];
+
+  const q2 = new URLSearchParams({db:"pubmed", id:pmids.join(","), retmode:"xml"});
+  const xmlRaw = await getText(`${PUBMED_BASE}/efetch.fcgi?${q2}`);
+  const doc = new DOMParser().parseFromString(xmlRaw, "application/xml");
+
+  const papers = [];
+  doc.querySelectorAll("PubmedArticle").forEach(art => {
+    const title = txt(art, "ArticleTitle") || "(제목 없음)";
+    const abstract = Array.from(art.querySelectorAll("Abstract AbstractText"))
+      .map(n => n.textContent || "").join(" ").trim();
+    const year = txt(art, "PubDate Year") || txt(art, "PubDate MedlineDate") || "?";
+    const journal = txt(art, "Journal Title") || "";
+    const pmid = txt(art, "PMID") || "";
+    papers.push({
+      pmid, title, journal, year,
+      abstract: abstract || "(초록 없음)",
+      url: `https://pubmed.ncbi.nlm.nih.gov/${pmid}/`,
+    });
+  });
+  return papers;
+}
+function txt(node, sel){
+  const el = node.querySelector(sel);
+  return el ? el.textContent : null;
+}
+
+/* ===== openFDA drug/label ===== */
+async function searchFda(drug){
+  const q = new URLSearchParams({search:`openfda.generic_name:${drug}`, limit:1});
+  let data;
+  try{
+    data = await getJSON(`${OPENFDA_LABEL}?${q}`);
+  }catch(e){
+    return {found:false};  // 404(결과 없음) 포함
+  }
+  const results = data.results || [];
+  if(!results.length) return {found:false};
+
+  const r = results[0];
+  const openfda = r.openfda || {};
+  const first = field => {
+    const v = r[field];
+    return (Array.isArray(v) && v.length) ? String(v[0]).trim() : null;
+  };
+  return {
+    found:true,
+    brand_name: openfda.brand_name || [],
+    generic_name: openfda.generic_name || [],
+    manufacturer: openfda.manufacturer_name || [],
+    route: openfda.route || [],
+    indications: first("indications_and_usage"),
+    dosage: first("dosage_and_administration"),
+    warnings: first("warnings") || first("warnings_and_cautions"),
+    adverse_reactions: first("adverse_reactions"),
+  };
+}
+
+/* ===== label_format.py 포팅 ===== */
+const WARNING_HEADERS = [
+  "Liver warning","Allergy alert","Sore throat warning","Stomach bleeding warning",
+  "Caffeine warning","Reye's syndrome",
+  "Do not use","Ask a doctor before use if you have","Ask a doctor before use if",
+  "Ask a doctor or pharmacist before use if","When using this product",
+  "Stop use and ask a doctor if","Stop use and ask a doctor or pharmacist if",
+  "If pregnant or breast-feeding","Keep out of reach of children",
+  "In case of overdose","Overdose warning",
+];
+const DOSAGE_HEADERS = [
+  "do not take more than directed","adults and children 12 years and over",
+  "adults and children","children under 12 years","children under",
+  "do not take for more than","do not use more than directed",
+  "do not exceed","ask a doctor",
+];
+
+function reEscape(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+function splitByHeaders(text, headers){
+  if(!text) return [];
+  text = text.replace(/\s+/g," ").trim();
+  const spots = [];
+  headers.forEach(h => {
+    const re = new RegExp(reEscape(h), "gi");
+    let m;
+    while((m = re.exec(text)) !== null){
+      spots.push([m.index, m.index + m[0].length, m[0]]);
+      if(m.index === re.lastIndex) re.lastIndex++;  // 빈 매칭 방지
+    }
+  });
+  // 시작 위치 오름차순, 같은 위치면 긴 표제어 우선
+  spots.sort((a,b) => a[0]-b[0] || b[1]-a[1]);
+  const cleaned = [];
+  let lastEnd = -1;
+  for(const [s,e,lab] of spots){
+    if(s >= lastEnd){ cleaned.push([s,e,lab]); lastEnd = e; }
+  }
+  if(!cleaned.length) return [{label:null, text:text}];
+
+  const sections = [];
+  const pre = text.slice(0, cleaned[0][0]).trim();
+  if(pre) sections.push({label:null, text:pre});
+  for(let i=0;i<cleaned.length;i++){
+    const [s,e,lab] = cleaned[i];
+    const end = (i+1 < cleaned.length) ? cleaned[i+1][0] : text.length;
+    const body = text.slice(e, end).replace(/^[\s:.\-]+|[\s:.\-]+$/g,"").trim();
+    sections.push({label:lab, text:body});
+  }
+  return sections;
+}
+
+function formatWarnings(text){
+  const secs = splitByHeaders(text, WARNING_HEADERS);
+  return secs.filter(s => !(s.label===null &&
+    ["","warnings"].includes(s.text.trim().toLowerCase())));
+}
+function formatDosage(text){
+  text = (text||"").replace(/\s+/g," ").trim();
+  text = text.replace(/^Directions\b[:\s]*/i, "");
+  const secs = splitByHeaders(text, DOSAGE_HEADERS);
+  const bullets = [];
+  for(const s of secs){
+    const line = (s.label ? `${s.label} — ${s.text}` : s.text).replace(/^[\s—]+|[\s—]+$/g,"");
+    if(line) bullets.push(line);
+  }
+  return bullets.length ? bullets : (text ? [text] : []);
+}
+function formatIndications(text){
+  text = (text||"").replace(/\s+/g," ").trim();
+  text = text.replace(/^(Uses|Indications and usage|Indications)\b[:\s]*/i,"").trim();
+  if(!text) return {intro:"", conditions:[]};
+
+  const m = text.match(/\bdue to:?\b/i);
+  if(!m){
+    const parts = text.split(/(?<=[.;])\s+/).map(p=>p.trim()).filter(Boolean);
+    return {intro: parts[0] || text, conditions: parts.length>1 ? parts.slice(1) : []};
+  }
+  const idx = m.index;
+  let intro = text.slice(0, idx).trim().replace(/,+$/,"");
+  let rest = text.slice(idx + m[0].length).replace(/^[\s:.\-]+/,"").trim();
+  let tail = "";
+  const tm = rest.match(/\btemporarily reduces?\b/i);
+  if(tm){
+    tail = rest.slice(tm.index).trim();
+    rest = rest.slice(0, tm.index).trim();
+  }
+  const conditions = [rest, tail].filter(Boolean);
+  return {intro, conditions};
+}
+
+/* ===== 검색 실행 ===== */
+async function search(){
+  const raw = $('#q').value.trim();
+  if(!raw) return;
+  const drug = KO_TO_EN[raw] || raw;
+  $('#go').disabled = true;
+  $('#status').textContent = '🔎 검색 중... (PubMed + FDA 조회)';
+  $('#out').innerHTML = '';
+  try{
+    const [papers, fda] = await Promise.all([
+      searchPubmed(drug, 8, "date").catch(() => []),
+      searchFda(drug),
+    ]);
+    if(fda.found){
+      fda.indications_fmt = formatIndications(fda.indications);
+      fda.dosage_fmt = formatDosage(fda.dosage);
+      fda.warnings_fmt = formatWarnings(fda.warnings);
+    }
+    render({drug_query:raw, drug_resolved:drug, pubmed:papers, fda:fda});
+    $('#status').textContent = '';
+  }catch(e){
+    $('#status').textContent = '⚠️ 오류: ' + e.message;
+  }finally{
+    $('#go').disabled = false;
+  }
+}
+
+// 경고 라벨 -> 위험도 분류 (색/아이콘/표시)
+function classifyWarning(label){
+  const l = (label||'').toLowerCase();
+  if(/liver|stomach bleeding|allergy|reye|caffeine/.test(l))
+    return {sev:'sev-critical', ic:'🛑', tag:'주의 경고'};
+  if(/do not use|overdose|keep out of reach|pregnant|breast/.test(l))
+    return {sev:'sev-stop', ic:'⛔', tag:'금기/안전'};
+  if(/stop use/.test(l))
+    return {sev:'sev-stop', ic:'✋', tag:'복용 중단'};
+  if(/ask a doctor|when using/.test(l))
+    return {sev:'sev-info', ic:'🩺', tag:'상담 권고'};
+  return {sev:'sev-caution', ic:'⚠️', tag:'주의'};
+}
+function splitSentences(t){
+  return (t||'').split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(Boolean);
+}
+
+function render(d){
+  let h = '';
+  const f = d.fda || {};
+
+  // ===== 허가 정보 (FDA) =====
+  h += '<section><h2><span class="ic">📋</span> 허가 정보 <span style="color:var(--muted);font-weight:600;font-size:.8rem">FDA</span></h2>';
+  if(f.found){
+    h += '<div class="kv">';
+    h += '<div class="cell"><div class="k">일반명</div><div class="v">' + esc((f.generic_name||[]).join(', ')) + '</div></div>';
+    if((f.brand_name||[]).length) h += '<div class="cell"><div class="k">제품명</div><div class="v">' + esc(f.brand_name.join(', ')) + '</div></div>';
+    if((f.route||[]).length) h += '<div class="cell"><div class="k">투여경로</div><div class="v">' + esc(f.route.join(', ')) + '</div></div>';
+    h += '</div>';
+
+    const ind = f.indications_fmt;
+    if(ind && (ind.intro || (ind.conditions||[]).length)){
+      h += '<div class="block"><div class="block-h">🎯 적응증 (Indications)</div>';
+      if(ind.intro) h += '<p class="lead">' + esc(ind.intro) + '</p>';
+      if((ind.conditions||[]).length){
+        h += '<div class="chips">';
+        ind.conditions.forEach(c => h += '<span class="tag">' + esc(c) + '</span>');
+        h += '</div>';
+      }
+      h += '</div>';
+    }
+
+    const dose = f.dosage_fmt || [];
+    if(dose.length){
+      const icons = ['📌','🧑‍🤝‍🧑','📅','👶','💬','💊'];
+      h += '<div class="block"><div class="block-h">💊 용법·용량 (Dosage)</div><div class="dose">';
+      dose.forEach((b,i) => {
+        const parts = b.split(' — ');
+        const k = parts.length>1 ? parts[0] : '';
+        const v = parts.length>1 ? parts.slice(1).join(' — ') : b;
+        h += '<div class="dose-row"><div class="dose-ic">' + icons[i%icons.length] + '</div>'
+           + '<div>' + (k ? '<div class="dose-k">' + esc(k) + '</div>' : '')
+           + '<div class="dose-v">' + esc(v) + '</div></div></div>';
+      });
+      h += '</div></div>';
+    }
+
+    const warns = (f.warnings_fmt || []).filter(w => (w.text || w.label) && !(w.label && w.label.toLowerCase()==='warnings'));
+    if(warns.length){
+      h += '<div class="block"><div class="block-h">⚠️ 주요 경고 (Warnings)</div><div class="warns">';
+      warns.forEach(w => {
+        const c = classifyWarning(w.label);
+        const sents = splitSentences(w.text);
+        h += '<div class="wcard ' + c.sev + '"><div class="wic">' + c.ic + '</div><div>';
+        if(w.label) h += '<span class="wlabel">' + esc(w.label) + '</span><span class="wsev">' + c.tag + '</span>';
+        if(sents.length){
+          const cls = sents.length>1 ? 'wbody' : 'wbody single';
+          h += '<ul class="' + cls + '">' + sents.map(s=>'<li>'+esc(s)+'</li>').join('') + '</ul>';
+        }
+        h += '</div></div>';
+      });
+      h += '</div></div>';
+    }
+  }else{
+    h += '<p class="empty">FDA 허가정보를 찾지 못했습니다 (영문 일반명으로 시도해 보세요).</p>';
+  }
+  h += '</section>';
+
+  // ===== 최신 논문 =====
+  const ps = d.pubmed || [];
+  h += '<section><h2><span class="ic">📚</span> 최신 논문 <span class="count">' + ps.length + '건</span></h2>';
+  if(ps.length){
+    ps.forEach((p,i) => {
+      h += '<div class="paper">';
+      h += '<h3>' + (i+1) + '. ' + esc(p.title) + '</h3>';
+      h += '<div class="meta"><span class="chip">' + esc(p.year) + '</span>' + esc(p.journal);
+      if(p.pmid) h += ' · <a href="' + esc(p.url) + '" target="_blank">PMID ' + esc(p.pmid) + ' ↗</a>';
+      h += '</div>';
+      const id = 'abs'+i;
+      h += '<div class="abs clamp" id="'+id+'">' + esc(p.abstract) + '</div>';
+      if((p.abstract||'').length > 180)
+        h += '<span class="toggle" onclick="document.getElementById(\''+id+'\').classList.toggle(\'clamp\')">▼ 초록 펼치기/접기</span>';
+      h += '</div>';
+    });
+  }else{
+    h += '<p class="empty">관련 논문을 찾지 못했습니다.</p>';
+  }
+  h += '</section>';
+
+  $('#out').innerHTML = h;
+}
+
+$('#go').addEventListener('click', search);
+$('#q').addEventListener('keydown', e => { if(e.key==='Enter') search(); });
+</script>
+</body></html>
